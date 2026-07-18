@@ -1,25 +1,42 @@
 import menu from './data.js'
+import { v4 as uuidv4 } from 'https://jspm.dev/uuid'
 
 const invoiceArray = []
 const appMenu = document.getElementById('app-menu')
 const myMain = document.getElementById('main')
 const myInvoice = document.getElementById('invoice')
 const myFooter = document.getElementById('footer')
+const completeBtn = document.getElementById('complete-btn')
 
 document.addEventListener('click',(e) => {
     if (e.target.classList.contains('fa-ellipsis-vertical')){
         appMenu.classList.toggle('hidden')
     }
     if(e.target.dataset.id) {
-        console.log('clicked')
         invoiceReader(e.target.dataset.id)
+    }
+    if(e.target.dataset.invoiceId) {
+        console.log(e.target.dataset.invoiceId)
+        invoiceRemoveItem(e.target.dataset.invoiceId)
+    }
+    if(e.target === completeBtn) {
+        console.log('hhhhhh')
     }
 })
 
 function invoiceReader (itemId){
     // data att. values always string
     const targetObj = menu.find(item => item.id === Number(itemId))
-    invoiceArray.push(targetObj)
+    invoiceArray.push({
+        item : targetObj,
+        id : uuidv4()
+    })
+    invoiceHtml()
+}
+
+function invoiceRemoveItem (itemId){
+    const targetObj = invoiceArray.find(obj => obj.id === itemId)
+    invoiceArray.splice(invoiceArray.indexOf(targetObj),1)
     invoiceHtml()
 }
 
@@ -47,18 +64,19 @@ function menuHtml (){
 }
 
 function invoiceHtml (){
-    console.log('here')
-        const invoiceString = invoiceArray.map((item) => {
+        const invoiceString = invoiceArray.map((object) => {
+            const {item, id} = object 
             return `
             <div class="invoice-item">
-                <p>${item.name}</p>
-                <span>remove</span>
+                    <p>${item.name}</p>
+                    <span data-invoice-id="${id}">remove</span>
                 <p>$${item.price}</p>
             </div>
             `
         }).join('')
         myInvoice.innerHTML = invoiceString
         myFooter.classList.remove('hidden')
+        //console.log(invoiceArray)
 }
 
 function render (){

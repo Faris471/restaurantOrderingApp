@@ -102,7 +102,7 @@ border-radius: 5px;
     display: none;
 }
 
-#invoice{
+.invoice{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -115,4 +115,10 @@ border-radius: 5px;
     justify-content:space-between;
     align-items: center;
     width: 450px;
+}
+
+span:hover {
+    color: #96ff2d;
+    text-decoration: underline ;
+    cursor: pointer;
 }
