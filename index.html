@@ -37,10 +37,21 @@
         <footer id="footer" class="hidden">
             <p class="item-name">Your Order</p>
             <div id="invoice" class="invoice">
+            </div>
+            <div id="invoice-total" >
 
             </div>
             <button id="complete-btn" class="complete-btn">Complete order</button>
         </footer>
+        <div id="form-modal" class="form-modal hidden">
+            <p class="item-name">Enter card details</p>
+            <form class="flex-col" action="">
+                <input type="text" class="form-input" placeholder="Enter your name" name="name" id="user-name" required>
+                <input type="text" class="form-input" placeholder="Enter card number" name="number" id="card-number" required>
+                <input type="text" class="form-input" placeholder="Enter CVV" name="cvv" id="card-cvv" required>
+                <button id="submit-btn" type="submit">Pay</button>
+            </form>
+        </div>
         
         <script src="index.js" type="module"></script>
     </body>

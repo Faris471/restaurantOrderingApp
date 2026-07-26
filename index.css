@@ -107,6 +107,7 @@ border-radius: 5px;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid black;
 }
 
 .invoice-item {
@@ -117,8 +118,45 @@ border-radius: 5px;
     width: 450px;
 }
 
-span:hover {
+.invoice-item-handle {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+    width: 160px;
+}
+
+.invoice-item span:hover {
     color: #96ff2d;
     text-decoration: underline ;
     cursor: pointer;
+}
+
+.form-modal { 
+    border: 1px solid #555;
+    border-radius: 5px;
+    position: fixed;
+    top: 200px;
+    left: 0;
+    right: 0;
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px 10px;
+    background-color: white;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 400px;
+}
+
+.form-input {
+    border: 1px solid #555;
+    border-radius: 5px;
+    width: 375px;
+    height: 45px;
+    font-size: 18px;
 }

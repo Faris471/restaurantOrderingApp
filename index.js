@@ -5,8 +5,10 @@ const invoiceArray = []
 const appMenu = document.getElementById('app-menu')
 const myMain = document.getElementById('main')
 const myInvoice = document.getElementById('invoice')
+const myInvoiceTotal = document.getElementById('invoice-total')
 const myFooter = document.getElementById('footer')
 const completeBtn = document.getElementById('complete-btn')
+const submitBtn = document.getElementById('submit-btn')
 
 document.addEventListener('click',(e) => {
     if (e.target.classList.contains('fa-ellipsis-vertical')){
@@ -20,9 +22,29 @@ document.addEventListener('click',(e) => {
         invoiceRemoveItem(e.target.dataset.invoiceId)
     }
     if(e.target === completeBtn) {
-        console.log('hhhhhh')
+        completeOrder()
+    }
+    if(e.target === submitBtn) {
+        e.preventDefault()
+        finishOrder()
     }
 })
+
+function finishOrder (){
+    const myForm = document.getElementById("form-modal")
+    myForm.classList.remove("flex-col")
+    myForm.classList.add("hidden")
+    myFooter.innerHTML = `
+    <p>
+        Thanks,Your order is on its way!
+    </p>` 
+}
+
+function completeOrder (){
+    const myForm = document.getElementById("form-modal")
+    myForm.classList.add("flex-col")
+    myForm.classList.remove("hidden")
+}
 
 function invoiceReader (itemId){
     // data att. values always string
@@ -68,13 +90,20 @@ function invoiceHtml (){
             const {item, id} = object 
             return `
             <div class="invoice-item">
+                <div class="invoice-item-handle">
                     <p>${item.name}</p>
                     <span data-invoice-id="${id}">remove</span>
+                </div>
                 <p>$${item.price}</p>
             </div>
             `
         }).join('')
         myInvoice.innerHTML = invoiceString
+        myInvoiceTotal.innerHTML = `<div class="invoice-item">
+                                        <p>Total Price:</p>
+                                        <p>$${invoiceArray.reduce((total, obj) =>{return total += obj.item.price},0)}</p>
+                                    </div>
+                                    `
         myFooter.classList.remove('hidden')
         //console.log(invoiceArray)
 }
