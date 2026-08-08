@@ -7,12 +7,22 @@ const myMain = document.getElementById('main')
 const myInvoice = document.getElementById('invoice')
 const myInvoiceTotal = document.getElementById('invoice-total')
 const myFooter = document.getElementById('footer')
+const myForm = document.getElementById('card-form')
 const completeBtn = document.getElementById('complete-btn')
+const cancelBtn = document.getElementById('cancel-btn')
 const submitBtn = document.getElementById('submit-btn')
 
+myForm.addEventListener('submit',(e)=>{
+    e.preventDefault()
+    finishOrder(myForm)
+})
+
 document.addEventListener('click',(e) => {
-    if (e.target.classList.contains('fa-ellipsis-vertical')){
+    if (e.target.classList.contains('fa-ellipsis-vertical')) {
         appMenu.classList.toggle('hidden')
+    }
+    if(e.target === cancelBtn || e.target.classList.contains('fa-trash-can')) {
+        resetInvoice()
     }
     if(e.target.dataset.id) {
         invoiceReader(e.target.dataset.id)
@@ -24,29 +34,50 @@ document.addEventListener('click',(e) => {
     if(e.target === completeBtn) {
         completeOrder()
     }
-    if(e.target === submitBtn) {
-        e.preventDefault()
-        finishOrder()
+    if (e.target.parentElement.dataset.order){
+        appMenuHandler(e.target.parentElement.dataset.order)
     }
 })
 
-function finishOrder (){
+function resetInvoice (){
+    console.log('hidden')
+    invoiceArray.length = 0
+    myFooter.classList.toggle('hidden')
+}
+
+function appMenuHandler (stringValue){
+    if (stringValue === "dark"){
+        document.getElementById("html").classList.toggle("dark-mode")
+        document.getElementById("app-menu").classList.toggle("dark-mode")
+        document.getElementById("form-modal").classList.toggle("dark-mode")
+    }
+}
+
+function finishOrder (form){ 
     const myForm = document.getElementById("form-modal")
-    myForm.classList.remove("flex-col")
-    myForm.classList.add("hidden")
-    myFooter.innerHTML = `
-    <p>
-        Thanks,Your order is on its way!
-    </p>` 
+    const data = new FormData(form)
+
+    const greets = document.getElementById("greets")
+    
+    myForm.classList.toggle("hidden")
+    document.getElementById("invoice-items").classList.toggle("hidden")
+    invoiceArray.length = 0
+    greets.innerHTML = `
+    Thanks, ${data.get("name")}! Your order is on its way!
+    `
+    document.getElementById("order-greeting").classList.toggle("hidden")
+    setTimeout(function(){
+       document.getElementById("order-greeting").classList.toggle("hidden") 
+    },5000)
 }
 
 function completeOrder (){
     const myForm = document.getElementById("form-modal")
-    myForm.classList.add("flex-col")
     myForm.classList.remove("hidden")
 }
 
 function invoiceReader (itemId){
+    console.log("hello")
     // data att. values always string
     const targetObj = menu.find(item => item.id === Number(itemId))
     invoiceArray.push({
@@ -59,7 +90,11 @@ function invoiceReader (itemId){
 function invoiceRemoveItem (itemId){
     const targetObj = invoiceArray.find(obj => obj.id === itemId)
     invoiceArray.splice(invoiceArray.indexOf(targetObj),1)
-    invoiceHtml()
+    if(invoiceArray.length >= 1) {
+        invoiceHtml()
+    } else {
+        myFooter.classList.toggle('hidden')
+    }
 }
 
 function menuHtml (){
@@ -68,12 +103,12 @@ function menuHtml (){
         return `
         <div id="${id}" class="menu-item">
             <div class="item-image">
-                <span>${emoji}</span>
+                ${emoji}
             </div>
             <div class="item-description">
-                <p class="item-name">${name}</p>
-                <p class="item-ingredients">${ingredients.join(', ')}</p>
-                <p class="item-price">$${price}</p>
+                <div class="item-name bold">${name}</div>
+                <div class="item-ingredients light">${ingredients.join(', ')}</div>
+                <div class="item-price bold">$${price}</div>
             </div>
             <div class="item-add-button">
                 <i class="fa-solid fa-plus"
@@ -86,26 +121,26 @@ function menuHtml (){
 }
 
 function invoiceHtml (){
-        const invoiceString = invoiceArray.map((object) => {
-            const {item, id} = object 
-            return `
-            <div class="invoice-item">
-                <div class="invoice-item-handle">
-                    <p>${item.name}</p>
-                    <span data-invoice-id="${id}">remove</span>
-                </div>
-                <p>$${item.price}</p>
+    console.log("hello")
+    const invoiceString = invoiceArray.map((object) => {
+        const {item, id} = object 
+        return `
+        <div class="invoice-item">
+            <div class="invoice-item-handle">
+                <div class="bold">${item.name}</div>
+                <span class="light" data-invoice-id="${id}">remove</span>
             </div>
-            `
-        }).join('')
-        myInvoice.innerHTML = invoiceString
-        myInvoiceTotal.innerHTML = `<div class="invoice-item">
-                                        <p>Total Price:</p>
-                                        <p>$${invoiceArray.reduce((total, obj) =>{return total += obj.item.price},0)}</p>
-                                    </div>
-                                    `
-        myFooter.classList.remove('hidden')
-        //console.log(invoiceArray)
+            <div class="bold">$${item.price}</div>
+        </div>
+        `
+    }).join('')
+    myInvoice.innerHTML = invoiceString
+    myInvoiceTotal.innerHTML = `<div class="invoice-item bold">
+                                    <p>Total Price:</p>
+                                    <p>$${invoiceArray.reduce((total, obj) =>{return total += obj.item.price},0)}</p>
+                                </div>
+                                `
+    myFooter.classList.remove('hidden')
 }
 
 function render (){

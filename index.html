@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id="html">
     <head>
         <title>Order</title>
         <link rel="stylesheet" href="index.css">
@@ -10,46 +10,48 @@
     </head>
     <body>
         <div id="app-menu" class="app-menu hidden">
-            <div class="app-menu-item">
-                <p class="fa-solid">Search Menu</p>
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-            <hr>
-            <div class="app-menu-item">
+            <div class="app-menu-item" data-order="history">
                 <p class="fa-solid">Order History</p>
                 <i class="fa-solid fa-clock-rotate-left"></i>
             </div>
             <hr>
-            <div class="app-menu-item">
+            <div class="app-menu-item" data-order="dark">
                 <p class="fa-solid">Dark Mode</p>
                 <i class="fa-solid fa-moon"></i>
             </div>
         </div>
+
         <header>
             <img src="./images/Null rest.svg" class="logo-image" alt="Null restaurant logo">
-            <div>
-                <i class="fa-solid fa-ellipsis-vertical"></i>
-            </div>
+            <i class="fa-solid fa-ellipsis-vertical"></i>
         </header>
+
         <main id="main">
 
         </main>
-        <footer id="footer" class="hidden">
-            <p class="item-name">Your Order</p>
-            <div id="invoice" class="invoice">
-            </div>
-            <div id="invoice-total" >
 
+        <footer id="footer" class="item-description hidden">
+            <div id="invoice-items" class="invoice-items">
+                <p class="item-name bold">Your Order</p>
+                <div id="invoice" class="invoice"></div>
+                <div id="invoice-total"></div>
+                <div class="invoice-btns">
+                    <button id="complete-btn" class="invoice-btn">Complete order</button>
+                    <button id="cancel-btn" class="invoice-btn cancel"><i class="fa-regular fa-trash-can"></i></button>
+                </div>
             </div>
-            <button id="complete-btn" class="complete-btn">Complete order</button>
+            <div id="order-greeting" class="order-greeting bold hidden">
+                <p id="greets"></p>
+            </div>
         </footer>
+
         <div id="form-modal" class="form-modal hidden">
-            <p class="item-name">Enter card details</p>
-            <form class="flex-col" action="">
+            <p class="item-name bold">Enter card details</p>
+            <form id="card-form" class="flex-col" action="">
                 <input type="text" class="form-input" placeholder="Enter your name" name="name" id="user-name" required>
                 <input type="text" class="form-input" placeholder="Enter card number" name="number" id="card-number" required>
                 <input type="text" class="form-input" placeholder="Enter CVV" name="cvv" id="card-cvv" required>
-                <button id="submit-btn" type="submit">Pay</button>
+                <button id="submit-btn" class="form-input" type="submit">Pay</button>
             </form>
         </div>
         

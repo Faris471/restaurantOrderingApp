@@ -1,0 +1,202 @@
+body {
+    width: 600px;
+    margin: 0 auto;
+}
+
+/* HeaderStyling */
+.logo-image {
+    padding: 3px 1px;
+    border: 2px solid rgba(252, 190, 73, 0.753);
+    border-radius: 3px;
+}
+
+.fa-ellipsis-vertical {
+    font-size: 30px;
+    position: relative;
+    left: 550px;
+    top: -110px;
+}
+
+.app-menu {
+    position: absolute;
+    left: 940px;
+    top: 100px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.app-menu-item {
+    cursor: pointer;
+}
+
+/* menuItemStyling */
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px #555 solid;
+    width: 600px;
+    margin-top: 20px;
+}
+
+.item-image {
+    font-size: 64px;
+}
+
+.item-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 15px;
+    height: 150px;
+    width: 260px;
+}
+
+.item-add-button {
+    margin-top: 30px;
+    font-size: 40px;
+}
+
+/* footerStyling */
+footer {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.invoice {
+    justify-content: space-around;
+    height: 500px;
+    border-bottom: 1px #555 solid;
+}
+
+.invoice-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 300px;
+}
+
+.invoice-item{
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+}
+
+.invoice-item-handle{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 180px;
+}
+
+.invoice-btn {
+    font-size: 24px;
+    line-height: 1;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 70%;
+    background-color: greenyellow;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.invoice-btns {
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.order-greeting {
+    width:476px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: rgba(172, 255, 47, 0.433);
+    padding: 15px 20px;
+    margin-top: 20px;
+}
+
+.order-greeting p {
+    padding: 0;
+    margin: 0;
+}
+
+.cancel {
+    width: 30%;
+    background-color: red;
+}
+
+.fa-trash-can {
+    color: black;
+}
+
+/* modalStyling */
+.form-modal {
+    position: fixed;
+    top: 200px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 1;
+    height: 600px;
+    width: 500px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form-input {
+    display:block;
+    width: 300px;
+    padding: 20px 0px;
+    margin: 50px;
+}
+
+/* utilityClasses */
+i {
+    cursor: pointer;
+    color: red;
+}
+
+.bold {
+    font-weight: bolder;
+    font-size: 24px;
+}
+
+.light {
+    font-weight: 200;
+}
+
+.hidden {
+    display: none;
+}
+
+span {
+    color: #555;
+    cursor: pointer;
+}
+
+span:hover {
+    text-decoration: underline;
+}
+
+.dark-mode {
+    background-color: black;
+    color: white;
+    border-color: white;
+}
